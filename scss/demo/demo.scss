@@ -1,0 +1,30 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    font-size: ($base-px - 2) * 1px;
+
+    @media #{$medium} {
+        font-size: ($base-px - 1) * 1px;
+    }
+
+    @media #{$large} {
+        font-size: $base-px * 1px;
+    }
+}
+
+body {
+    @include rem-calc(font-size, 16);
+}
+
+.content {
+    background-color: #1B676B;
+
+    .content {
+        height: 100%;
+        background-color: #BEF202;
+    }
+}

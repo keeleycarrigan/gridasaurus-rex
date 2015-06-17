@@ -6,7 +6,7 @@
 	@for $i from 1 through $max {
 		$value: nth($values, $i);
 
-		@if type-of($value) == "string" {
+		@if type-of($value) == "string" or type-of($value) == "color"  {
 			$pxValues: #{$pxValues + " " + $value};
 		} @else {
 			$pxValues: #{$pxValues + " " + $value}px;
@@ -16,7 +16,7 @@
 	@for $i from 1 through $max {
 		$value: nth($values, $i);
 
-		@if type-of($value) == "string" {
+		@if type-of($value) == "string" or type-of($value) == "color" {
 			$remValues: #{$remValues + " " + $value};
 		} @else {
 			$remValues: #{$remValues + " " + $value / $base-px}rem;

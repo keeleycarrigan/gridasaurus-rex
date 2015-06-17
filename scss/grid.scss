@@ -14,42 +14,42 @@ $row-width: $max-content-width + $column-gutter;
 // $behavior - Any special behavior for this row? Default: false. Options: nest, collapse, nest-collapse, false.
 @mixin grid-row($behavior: false) {
 
-  // use @include grid-row(nest); to include a nested row
-  @if $behavior == nest {
-	width: auto;
-	@include rem-calc(margin-#{$default-float}, -($column-gutter / 2));
-	@include rem-calc(margin-#{$opposite-direction}, -($column-gutter / 2));
-	margin-top: 0;
-	margin-bottom: 0;
-	max-width: none;
-  }
+	// use @include grid-row(nest); to include a nested row
+	@if $behavior == nest {
+		width: auto;
+		@include rem-calc(margin-#{$default-float}, -($column-gutter / 2));
+		@include rem-calc(margin-#{$opposite-direction}, -($column-gutter / 2));
+		margin-top: 0;
+		margin-bottom: 0;
+		max-width: none;
+	}
 
-  // use @include grid-row(collapse); to collapsed a container row margins
-  @else if $behavior == collapse {
-	width: 100%;
-	margin: 0;
-	@include rem-calc(max-width, $row-width);
-  }
+	// use @include grid-row(collapse); to collapsed a container row margins
+	@else if $behavior == collapse {
+		width: 100%;
+		margin: 0;
+		@include rem-calc(max-width, $row-width);
+	}
 
-  // use @include grid-row(nest-collapse); to collapse outer margins on a nested row
-  @else if $behavior == nest-collapse {
-	width: auto;
-	margin: 0;
-	max-width: none;
-  }
+	// use @include grid-row(nest-collapse); to collapse outer margins on a nested row
+	@else if $behavior == nest-collapse {
+		width: auto;
+		margin: 0;
+		max-width: none;
+	}
 
-  // use @include grid-row; to use a container row
-  @else {
-	width: 100%;
-	margin-#{$default-float}: auto;
-	margin-#{$opposite-direction}: auto;
-	margin-top: 0;
-	margin-bottom: 0;
-	@include rem-calc(max-width, $row-width);
-  }
+	// use @include grid-row; to use a container row
+	@else {
+		width: 100%;
+		margin-#{$default-float}: auto;
+		margin-#{$opposite-direction}: auto;
+		margin-top: 0;
+		margin-bottom: 0;
+		@include rem-calc(max-width, $row-width);
+	}
 
-  // Clearfix for all rows
-  @include clearfix();
+	// Clearfix for all rows
+	@include clearfix();
 }
 
 //
@@ -62,59 +62,59 @@ $row-width: $max-content-width + $column-gutter;
 // $collapse - Get rid of gutter padding on column? Default: false.
 // $float - Should this float? Default: true. Options: true, false, left, right.
 @mixin grid-column(
-  $columns:false,
-  $last-column:false,
-  $center:false,
-  $offset:false,
-  $push:false,
-  $pull:false,
-  $collapse:false,
-  $float:true,
-  $position:false) {
+	$columns:false,
+	$last-column:false,
+	$center:false,
+	$offset:false,
+	$push:false,
+	$pull:false,
+	$collapse:false,
+	$float:true,
+	$position:false) {
 
-  // If positioned for default .column, include relative position
-  // push and pull require position set
-  @if $position or $push or $pull {
-	position: relative;
-  }
+	// If positioned for default .column, include relative position
+	// push and pull require position set
+	@if $position or $push or $pull {
+		position: relative;
+	}
 
-  // If collapsed, get rid of gutter padding
-  @if $collapse {
-	padding-left: 0;
-	padding-right: 0;
-  }
+	// If collapsed, get rid of gutter padding
+	@if $collapse {
+		padding-left: 0;
+		padding-right: 0;
+	}
 
-  // Gutter padding whenever a column isn't set to collapse
-  // (use $collapse:null to do nothing)
-  @else if $collapse == false {
-	@include rem-calc(padding-left, ($column-gutter / 2));
-	@include rem-calc(padding-right, ($column-gutter / 2));
-  }
+	// Gutter padding whenever a column isn't set to collapse
+	// (use $collapse:null to do nothing)
+	@else if $collapse == false {
+		@include rem-calc(padding-left, ($column-gutter / 2));
+		@include rem-calc(padding-right, ($column-gutter / 2));
+	}
 
-  // If a column number is given, calculate width
-  @if $columns {
-	width: grid-calc($columns, $total-columns);
-  }
+	// If a column number is given, calculate width
+	@if $columns {
+		width: grid-calc($columns, $total-columns);
+	}
 
-  // Source Ordering, adds left/right depending on which you use.
-  @if $push { #{$default-float}: grid-calc($push, $total-columns); #{$opposite-direction}: auto; }
-  @if $pull { #{$opposite-direction}: grid-calc($pull, $total-columns); #{$default-float}: auto; }
+	// Source Ordering, adds left/right depending on which you use.
+	@if $push { #{$default-float}: grid-calc($push, $total-columns); #{$opposite-direction}: auto; }
+	@if $pull { #{$opposite-direction}: grid-calc($pull, $total-columns); #{$default-float}: auto; }
 
-  @if $float {
-	@if $float == left or $float == true { float: $default-float; }
-	@else if $float == right { float: $opposite-direction; }
-	@else { float: none; }
-  }
+	@if $float {
+		@if $float == left or $float == true { float: $default-float; }
+		@else if $float == right { float: $opposite-direction; }
+		@else { float: none; }
+	}
 
-  // If centered, get rid of float and add appropriate margins
-  @if $center {
-	margin-#{$default-float}: auto;
-	margin-#{$opposite-direction}: auto;
-	float: none;
-  }
+	// If centered, get rid of float and add appropriate margins
+	@if $center {
+		margin-#{$default-float}: auto;
+		margin-#{$opposite-direction}: auto;
+		float: none;
+	}
 
-  // If offset, calculate appropriate margins
-  @if $offset { margin-#{$default-float}: grid-calc($offset, $total-columns) !important; }
+	// If offset, calculate appropriate margins
+	@if $offset { margin-#{$default-float}: grid-calc($offset, $total-columns) !important; }
 
 }
 
@@ -194,7 +194,7 @@ $row-width: $max-content-width + $column-gutter;
 }
 
 *,
-*:before
+*:before,
 *:after {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -251,39 +251,39 @@ $row-width: $max-content-width + $column-gutter;
 }
 
 @media #{$small} {
-  @include grid-html-classes($size:sm);
+	@include grid-html-classes($size:sm);
 }
 
 @media #{$small-only} {
-  .hide-sm {
-	display: none;
-  }
+	.hide-sm {
+		display: none;
+	}
 }
 
 @media #{$medium} {
-  @include grid-html-classes($size:md);
+	@include grid-html-classes($size:md);
 }
 
 @media #{$medium-only} {
-  .hide-md {
-	display: none;
-  }
+	.hide-md {
+		display: none;
+	}
 }
 
 @media #{$large} {
-  @include grid-html-classes($size:lg);
+	@include grid-html-classes($size:lg);
 }
 
 @media #{$large-only} {
-  .hide-lg {
-	display: none;
-  }
+	.hide-lg {
+		display: none;
+	}
 }
 
 @media #{$xlarge} {
-  @include grid-html-classes($size:xl);
+	@include grid-html-classes($size:xl);
 
-  .hide-xl {
-	display: none;
-  }
+	.hide-xl {
+		display: none;
+	}
 }
